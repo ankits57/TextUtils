@@ -8,11 +8,19 @@ export default function TextForm(props) {
         console.log('UpperCase');
         let upperText = text.toUpperCase();
         setText(upperText);
+        props.showAlert("Converted to Upper Case","success");
     }
     const handleLowClick =() =>{
         console.log('UpperCase');
         let lowerText = text.toLowerCase();
         setText(lowerText);
+        props.showAlert("Converted to Lower Case","success");
+    }
+    const handleCopyClick=()=>{
+        let text = document.getElementById("exampleFormControlTextarea1");
+        text.select();
+        navigator.clipboard.writeText(text.value);
+        props.showAlert("Copied to Clipboard","success");
     }
     const handleonChange=(event)=>{
         setText(event.target.value);
@@ -28,11 +36,13 @@ export default function TextForm(props) {
     </div>
     <button className='btn btn-primary mx-2 my-2' onClick={handleUpClick}>Convert to Uppercase</button>
     <button className='btn btn-primary mx-2 my-2' onClick={handleLowClick}>Convert to Lowercase</button>
+    <button className='btn btn-primary mx-2 my-2' onClick={handleCopyClick}>Copy to ClipBoard</button>
+
     <div className='container'>
         <h1> Your Text Summary</h1>
         <p>{text.split(" ").length} words, {text.length} Characters and {(text.split(" ").length * 0.008).toFixed(3)} Minutes Reading </p>
-        <h3>Preview</h3>
-        <p>{text}</p>
+        <h3 id ='preview'>Preview</h3>
+        <p>{text === '' ? 'Enter your text to preview' : text}</p>
     </div>
     </>
     
